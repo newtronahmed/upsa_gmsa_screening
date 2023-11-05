@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('patients', function (Blueprint $table) {
-            $table->id();
+            $table->id(); 
             $table->string('name');
             $table->string('sex');
             $table->string('student_id')->unique();
@@ -40,6 +40,7 @@ return new class extends Migration
 
             // Blood grouping
             $table->string('blood_group')->nullable();
+            $table->string('rh_typing')->nullable();
 
             $table->timestamps();
         });

@@ -3,6 +3,7 @@
 use App\Http\Controllers\CheckpointController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StorageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,6 +22,13 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', [PagesController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::post('/dashboard', [StorageController::class, 'dashboard'])->middleware(['auth'])->name('dashboard.submit');
+
+Route::post('/testResults/{path_no}', [StorageController::class, 'testResults'])->middleware(['auth'])->name('testResults.submit');
+Route::post('/phlebotomy/{path_no}', [StorageController::class, 'phlebotomy'])->middleware(['auth'])->name('phlebotomy.submit');
+Route::post('/serologicalTest/{path_no}', [StorageController::class, 'serologicalTest'])->middleware(['auth'])->name('serologicalTest.submit');
+Route::post('/bloodGroupings/{path_no}', [StorageController::class, 'bloodGroupings'])->middleware(['auth'])->name('bloodGroupings.submit');
+
 
 Route::get('/checkpoint', function () {
     return view('checkpoint');
