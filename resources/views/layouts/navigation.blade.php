@@ -17,6 +17,7 @@
                     </x-nav-link>
                 </div>
             </div>
+            <div class="self-center font-bold text-2xl leading-3">GMSA UPSA HEALTH SCREENING 2023</div>
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">

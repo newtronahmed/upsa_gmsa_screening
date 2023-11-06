@@ -41,4 +41,11 @@ class PagesController extends Controller
         $id = $path_no;
         return view('bloodGroupings', compact('id'));
     }
+    public function updateDashboard(Patient $path_no)
+    {
+        $id = $path_no;
+        return view('updateDashboard', compact('id'));
+    }
+
+
 }

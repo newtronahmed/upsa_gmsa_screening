@@ -16,7 +16,8 @@ class StorageController extends Controller
             "student_id" => "required|string",
             "level" => "required|string",
             "path_no" => "required|string",
-            "department" => "nullable|string"
+            "department" => "nullable|string",
+            "contact" => "nullable|string"
         ]);
         try {
             Patient::create([
@@ -26,6 +27,7 @@ class StorageController extends Controller
                 "level" => $validated["level"],
                 "path_no" => $validated["path_no"],
                 "department" => $validated["department"],
+                "contact" => $validated["contact"]
             ]);
             // session()->flash('success', 'Successfully created patient');
             // toastr()->success("Successfully created patient {{ $request->only('path_no') }} ");
@@ -35,7 +37,7 @@ class StorageController extends Controller
 
             return redirect()->back();
         } catch (Exception $e) {
-            toastr()->success("Error while creating patient");
+            toastr()->error("Error while creating patient");
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
@@ -50,11 +52,11 @@ class StorageController extends Controller
                 "height" => $request->height,
                 "bmi" => $request->bmi
             ]);
-            toastr()->success("Successfully created patient #{$path_no->path_no}");
+            toastr()->success("Successfully updated patient #{$path_no->path_no}");
 
             return redirect()->back();
         } catch (Exception $e) {
-            toastr()->success("Something went wrong while updating {$path_no->path_no}");
+            toastr()->error("Something went wrong while updating {$path_no->path_no}");
             return redirect()->back();
         }
     }
@@ -69,7 +71,7 @@ class StorageController extends Controller
             return redirect()->back();
         } catch (Exception $e) {
             //throw $th;
-            toastr()->success("Something went wrong while updating {$path_no->path_no}");
+            toastr()->error("Something went wrong while updating {$path_no->path_no}");
             return redirect()->back();
         }
     }
@@ -86,23 +88,58 @@ class StorageController extends Controller
             return redirect()->back();
         } catch (Exception $e) {
             //throw $th
-            toastr()->success("Something went wrong while updating {$path_no->path_no}");
+            toastr()->error("Something went wrong while updating {$path_no->path_no}");
             return redirect()->back();
         }
     }
     public function bloodGroupings(Request $request, Patient $path_no)
     {
+        $request->validate([
+            "blood_group" => "required|string",
+        ]);
         try {
             $path_no->update([
                 'blood_group' => $request->blood_group,
                 'rh_typing' => $request->rh_typing
             ]);
-            toastr()->success("Successfully created patient #{$path_no->path_no}");
+            toastr()->success("Successfully updated patient #{$path_no->path_no}");
             return redirect()->back();
         } catch (Exception $e) {
             //throw $th;
-            toastr()->success("Something went wrong while updating {$path_no->path_no}");
+            toastr()->error("Something went wrong while updating {$path_no->path_no}");
             return redirect()->back();
         }
+    }
+    public function updateDashboard(Request $request, Patient $path_no)
+    {
+        $validated = $request->validate([
+            "name" => "required|string",
+            "sex" => "required|string",
+            "student_id" => "required|string",
+            "level" => "required|string",
+            "path_no" => "required|string",
+            "department" => "nullable|string",
+            "contact" => "required|string"
+        ]);
+        try {
+            $path_no->update([
+                "name" => $validated["name"],
+                "sex" => $validated["sex"],
+                "student_id" => $validated["student_id"],
+                "level" => $validated["level"],
+                "path_no" => $validated["path_no"],
+                "department" => $validated["department"],
+                "contact" => $validated["contact"]
+            ]);
+    
+            toastr()->success("Successfully updated patient #{$path_no->path_no}");
+            return redirect()->back();
+            //code...
+        } catch (\Throwable $th) {
+            //throw $th;
+            toastr()->error("Something went wrong while updating {$path_no->path_no}");
+            return redirect()->back();
+        }
+
     }
 }

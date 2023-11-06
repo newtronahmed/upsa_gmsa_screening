@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('student_id')->unique();
             $table->string('department');
             $table->string('level');
-            $table->string('contact');
+            $table->string('contact')->nullable();
             $table->string('path_no')->unique();
 
             // Test results
