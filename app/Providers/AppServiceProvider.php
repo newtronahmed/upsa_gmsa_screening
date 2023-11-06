@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Patient;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -14,7 +15,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        if (!$this->app->environment('production')) {
+            URL::forceScheme('https');
+        }
     }
 
     /**
@@ -24,6 +27,5 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        
     }
 }
