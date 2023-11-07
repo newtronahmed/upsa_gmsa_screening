@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CheckpointController;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\PDFController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StorageController;
 use Illuminate\Support\Facades\Route;
@@ -43,6 +44,7 @@ Route::get('/serologicalTest/{path_no}', [PagesController::class, 'serologicalTe
 Route::get('/bloodGroupings/{path_no}', [PagesController::class, 'bloodGroupings'])->name('bloodGroupings');
 Route::get('/updateDashboard/{path_no}', [PagesController::class, 'updateDashboard'])->name('updateDashboard');
 
+Route::get('/results/{path_no}', [PDFController::class, 'generatePdf'])->middleware(['auth'])->name('results');
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
